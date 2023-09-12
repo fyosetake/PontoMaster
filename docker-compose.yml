@@ -1,0 +1,16 @@
+version: '3'
+services:
+  myapp:
+    image: pontomaster
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: sua_senha
+      MYSQL_DATABASE: seu_banco_de_dados
+    ports:
+      - "3306:3306"
