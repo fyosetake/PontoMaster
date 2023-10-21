@@ -2,12 +2,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Registro = require('./Registro');
 const sequelize = require('./dbConfig');
+const { validationResult } = require('express-validator');
 
 const app = express();
 
 app.use(bodyParser.json());
 
 app.post('/registrar-ponto', async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const { user } = req.body;
     const timestamp = new Date();
